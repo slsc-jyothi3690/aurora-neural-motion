@@ -24,9 +24,9 @@ export const spotlight = (e: PointerEvent<HTMLElement>) => {
 /** Subtle 3D tilt for fine pointers only. */
 export const tilt = (e: PointerEvent<HTMLElement>) => {
   spotlight(e);
-  if (e.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (e.pointerType !== "mouse") return;
   const r = e.currentTarget.getBoundingClientRect();
   const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-  e.currentTarget.style.transform = `perspective(900px) rotateX(${-y * 5}deg) rotateY(${x * 6}deg) translateY(-3px)`;
+  e.currentTarget.style.transform = `perspective(900px) rotateX(${-y * 8}deg) rotateY(${x * 10}deg) translateY(-3px)`;
 };
 export const untilt = (e: PointerEvent<HTMLElement>) => { e.currentTarget.style.transform = ""; };
