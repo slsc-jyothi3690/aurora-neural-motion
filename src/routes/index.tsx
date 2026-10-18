@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, ArrowUp, Brain, ShieldCheck, Workflow, Code2, Mail, Phone, MapPin, Linkedin, Award, Languages, Menu, X, GraduationCap, FileText } from "lucide-react";
 import { Background } from "@/components/portfolio/Background";
 import { AICore } from "@/components/portfolio/AICore";
@@ -134,11 +134,11 @@ function Hero() {
       <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 lg:grid-cols-[1.15fr_1fr]">
         <div>
           <Reveal><p className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan/30 px-3 py-1 font-mono text-xs tracking-[0.2em] text-cyan"><span className="status-dot h-2 w-2 rounded-full bg-cyan" /> IT ANALYST @ COGNIZANT</p></Reveal>
-          <Reveal delay={100}>
-            <h1 className="text-5xl font-bold leading-[1.02] sm:text-6xl lg:text-7xl">
-              Testing <span className="text-gradient">Intelligence.</span><br />Building <span className="text-gradient">Trust.</span><br />Exploring AI.
-            </h1>
-          </Reveal>
+          <h1 className="text-5xl font-bold leading-[1.02] sm:text-6xl lg:text-7xl">
+            <span className="line-reveal"><span style={{ ["--delay" as string]: "150ms" }}>Testing <span className="text-gradient">Intelligence.</span></span></span>
+            <span className="line-reveal"><span style={{ ["--delay" as string]: "350ms" }}>Building <span className="text-gradient">Trust.</span></span></span>
+            <span className="line-reveal"><span style={{ ["--delay" as string]: "550ms" }}>Exploring AI.</span></span>
+          </h1>
           <Reveal delay={200}>
             <p className="mt-8 font-display text-xl font-medium">Sishtu Lalitha Sri Chandra Jyothi</p>
             <p className="mt-1 font-mono text-sm text-cyan">IT Analyst · GenAI Testing · QA Automation</p>
@@ -209,10 +209,10 @@ function Experience() {
       <div className="mx-auto max-w-6xl px-6">
         <SectionHead eyebrow="02 / Experience" title="Where quality meets real-world systems." />
         <div className="relative space-y-10 pl-8 sm:pl-12">
-          <span aria-hidden className="absolute left-2 top-2 bottom-2 w-px bg-gradient-to-b from-violet via-sky to-transparent sm:left-4" />
+          <TimelineLine />
           {experience.map((e, i) => (
             <Reveal key={e.role} delay={i * 120} className="relative">
-              <span aria-hidden className={`absolute -left-[30px] top-7 h-3 w-3 rounded-full sm:-left-[38px] ${e.current ? "bg-violet shadow-[var(--glow-violet)]" : "bg-muted-foreground"}`} />
+              <span aria-hidden className={`absolute -left-[30px] top-7 h-3 w-3 rounded-full sm:-left-[38px] ${e.current ? "bg-violet node-pulse" : "bg-cyan node-pulse"}`} />
               <article className={`glass hover-card p-6 sm:p-8 ${e.current ? "border-violet/40 shadow-[var(--glow-violet)]" : ""}`} onPointerMove={spotlight}>
                 <div className="flex flex-wrap items-baseline justify-between gap-3">
                   <h3 className="text-2xl font-semibold">{e.role} <span className="text-muted-foreground">— {e.company}</span></h3>
@@ -232,6 +232,16 @@ function Experience() {
   );
 }
 
+function TimelineLine() {
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const el = ref.current; if (!el) return;
+    const io = new IntersectionObserver((es) => { if (es[0]?.isIntersecting) { el.dataset["drawn"] = "true"; io.disconnect(); } }, { threshold: 0.1 });
+    io.observe(el); return () => io.disconnect();
+  }, []);
+  return <span ref={ref} aria-hidden className="timeline-line absolute left-2 top-2 bottom-2 w-px bg-gradient-to-b from-violet via-cyan to-transparent sm:left-4" />;
+}
+
 function Skills() {
   return (
     <section id="skills" className="py-28">
@@ -240,7 +250,7 @@ function Skills() {
         <div className="grid gap-5 sm:grid-cols-2">
           {skills.map((s, i) => (
             <Reveal key={s.title} delay={i * 90}>
-              <div className="glass hover-card h-full p-7" onPointerMove={spotlight}>
+              <div className="glass hover-card tilt-card h-full p-7" onPointerMove={tilt} onPointerLeave={untilt}>
                 <s.icon className="h-7 w-7 text-cyan" />
                 <h3 className="mt-4 text-xl font-semibold">{s.title}</h3>
                 <ul className="mt-4 flex flex-wrap gap-2">{s.items.map((it) => <li key={it} className="tag">{it}</li>)}</ul>
@@ -285,7 +295,7 @@ function Projects() {
         <div className="grid gap-6 lg:grid-cols-6">
           {projects.map((p, i) => (
             <Reveal key={p.n} delay={i * 110} className={i === 0 ? "lg:col-span-4" : i === 1 ? "lg:col-span-2" : "lg:col-span-6"}>
-              <article tabIndex={0} className="glass hover-card group flex h-full flex-col overflow-hidden" onPointerMove={tilt} onPointerLeave={untilt}>
+              <article tabIndex={0} className="glass hover-card tilt-card group flex h-full flex-col overflow-hidden" onPointerMove={tilt} onPointerLeave={untilt}>
                 <div className="relative h-36 border-b border-border bg-gradient-to-br from-violet/10 via-transparent to-cyan/10 p-4 transition-opacity duration-500 group-hover:opacity-100 sm:h-44">
                   <Motif kind={p.motif} />
                 </div>
