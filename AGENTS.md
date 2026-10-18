@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Store downloadable resumes as Lovable Assets JSON pointers and use their URL in existing resume links, keeping uploaded binaries out of the source repository.

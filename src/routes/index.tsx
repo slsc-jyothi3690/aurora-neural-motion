@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUpRight, ArrowUp, Brain, ShieldCheck, Workflow, Code2, 
 import { Background } from "@/components/portfolio/Background";
 import { AICore } from "@/components/portfolio/AICore";
 import { Reveal, spotlight, tilt, untilt } from "@/components/portfolio/Reveal";
+import resumeAsset from "@/assets/jyothi-resume.pdf.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -19,8 +20,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-/** Set to a real file path (e.g. "/resume.pdf" in public/) once the resume is added. */
-const RESUME_URL: string | null = null;
+const RESUME_URL = resumeAsset.url;
 const LINKEDIN = "https://www.linkedin.com/in/sishtu-lalitha-sri-chandra-jyothi";
 
 const nav = ["Home", "About", "Experience", "Skills", "Projects", "Certifications", "Contact"];
@@ -46,7 +46,7 @@ const experience = [
       "Performed manual testing and supported selected tool-based automation scenarios.",
       "Tested a Cigna healthcare claims chatbot by validating prompts and responses against expected outcomes.",
       "Covered positive and negative scenarios and functional and non-functional chatbot behavior.",
-      "Created test scenarios from user stories, logged defects in Jira, retested fixes, and performed regression testing.",
+      "Created test scenarios from user stories, logged defects in Jira, retested fixes, performed regression testing, and documented test evidence.",
       "Used LangSmith for exposure to chatbot-response failure analysis and Microsoft Copilot to assist with test scenarios and defect documentation.",
     ],
     tools: ["Jira", "LangSmith", "Microsoft Copilot", "Manual Testing", "Regression"],
@@ -55,7 +55,7 @@ const experience = [
 
 const skills = [
   { title: "AI & LLM Testing", icon: Brain, items: ["Generative AI chatbot testing", "LLM prompt testing", "Expected-response validation", "Positive and negative scenarios", "Functional and non-functional testing", "LangSmith exposure"] },
-  { title: "Quality Assurance", icon: ShieldCheck, items: ["UI testing", "API testing", "Web and mobile testing", "Regression testing", "Defect reporting and retesting", "Test scenario design", "Test evidence documentation"] },
+  { title: "Quality Assurance", icon: ShieldCheck, items: ["UI testing", "API testing", "Web and mobile testing", "Regression testing", "Defect reporting and retesting", "Test scenario design", "Test evidence documentation", "Defect analysis", "Story-based testing", "Data validation", "Communication", "Teamwork", "Adaptability"] },
   { title: "Automation & Tools", icon: Workflow, items: ["Playwright", "Cursor AI", "GitHub", "Jira", "BrowserStack", "Microsoft Copilot", "CSA tool"] },
   { title: "Programming", icon: Code2, items: ["Python — Intermediate", "R Programming — Intermediate", "C — Basic", "HTML/CSS — Basic"] },
 ];
