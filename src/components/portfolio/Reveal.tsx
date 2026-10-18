@@ -5,8 +5,8 @@ export function Reveal({ children, delay = 0, className = "", as: Tag = "div" }:
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { el.dataset.visible = "true"; io.disconnect(); }
+    const io = new IntersectionObserver((entries) => { const e = entries[0]; if (!e) return;
+      if (e.isIntersecting) { el.dataset["visible"] = "true"; io.disconnect(); }
     }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
     io.observe(el);
     return () => io.disconnect();

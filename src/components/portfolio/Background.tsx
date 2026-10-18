@@ -42,7 +42,7 @@ export function Background() {
       }
       for (let i = 0; i < pts.length; i++) {
         for (let j = i + 1; j < pts.length; j++) {
-          const a = pts[i], b = pts[j];
+          const a = pts[i]!, b = pts[j]!;
           const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
           if (d < linkDist) {
             ctx.strokeStyle = `rgba(139,140,246,${(1 - d / linkDist) * 0.16 * Math.min(a.z, b.z)})`;
