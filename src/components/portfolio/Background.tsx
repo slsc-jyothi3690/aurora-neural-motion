@@ -25,15 +25,16 @@ export function Background() {
     const count = mobile ? 34 : Math.min(80, Math.floor((w * h) / 18000));
     const pts = Array.from({ length: count }, () => {
       const z = Math.random() * 0.8 + 0.2;
-      return { x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.25 * z, vy: (Math.random() - 0.5) * 0.25 * z, z, hue: Math.random() > 0.5 ? 0 : 1 };
+      return { x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - 0.5) * 0.55 * z, vy: (Math.random() - 0.5) * 0.55 * z, z, hue: Math.random() > 0.5 ? 0 : 1 };
     });
-    const linkDist = mobile ? 90 : 130;
+    const linkDist = mobile ? 100 : 150;
 
     const draw = () => {
       ctx.clearRect(0, 0, w, h);
       for (const p of pts) {
-        if (!reduced) {
-          p.x += p.vx; p.y += p.vy;
+        {
+          const sp = reduced ? 0.4 : 1;
+          p.x += p.vx * sp; p.y += p.vy * sp;
           const dx = p.x - mouse.x, dy = p.y - mouse.y, d2 = dx * dx + dy * dy;
           if (d2 < 22000) { const f = (1 - d2 / 22000) * 0.6 * p.z; p.x += (dx / Math.sqrt(d2 + 1)) * f; p.y += (dy / Math.sqrt(d2 + 1)) * f; }
           if (p.x < -20) p.x = w + 20; if (p.x > w + 20) p.x = -20;
@@ -45,8 +46,8 @@ export function Background() {
           const a = pts[i]!, b = pts[j]!;
           const dx = a.x - b.x, dy = a.y - b.y, d = Math.hypot(dx, dy);
           if (d < linkDist) {
-            ctx.strokeStyle = `rgba(139,140,246,${(1 - d / linkDist) * 0.16 * Math.min(a.z, b.z)})`;
-            ctx.lineWidth = 0.6;
+            ctx.strokeStyle = `rgba(139,140,246,${(1 - d / linkDist) * 0.35 * Math.min(a.z, b.z)})`;
+            ctx.lineWidth = 0.8; ctx.shadowBlur = 6; ctx.shadowColor = "rgba(139,92,246,0.6)";
             ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
           }
         }
@@ -58,7 +59,7 @@ export function Background() {
         ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, Math.PI * 2); ctx.fill();
       }
       ctx.shadowBlur = 0;
-      if (running && !reduced) raf = requestAnimationFrame(draw);
+      if (running) raf = requestAnimationFrame(draw);
     };
     draw();
 
@@ -70,7 +71,7 @@ export function Background() {
     const onVis = () => {
       running = !document.hidden;
       cancelAnimationFrame(raf);
-      if (running && !reduced) raf = requestAnimationFrame(draw);
+      if (running) raf = requestAnimationFrame(draw);
     };
     window.addEventListener("resize", resize);
     if (!mobile) window.addEventListener("pointermove", onMove, { passive: true });

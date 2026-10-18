@@ -11,11 +11,14 @@ export function AICore() {
       {[0, 2, 4].map((d) => (
         <span key={d} className="ripple h-[60%] w-[60%]" style={{ ["--delay" as string]: `${d}s` }} />
       ))}
-      <div className="orbit spin-slow h-[96%] w-[96%] border-dashed"><span className="orbit-dot" /></div>
-      <div className="orbit spin-mid h-[78%] w-[78%]" style={{ transform: "rotateX(60deg)" }}>
-        <span className="orbit-dot" style={{ background: "var(--violet)", boxShadow: "0 0 12px var(--violet)" }} />
+      <div className="orbit spin-slow h-[96%] w-[96%] border-dashed"><span className="orbit-dot" /><span className="orbit-dot !top-1/2 !-left-1 !ml-0" style={{ background: "var(--violet)" }} /></div>
+      <div className="absolute inset-0" style={{ transform: "rotateX(62deg) rotateZ(-20deg)" }}>
+        <div className="orbit spin-mid h-[82%] w-[82%] border-violet/40">
+          <span className="orbit-dot" style={{ background: "var(--violet)", boxShadow: "0 0 14px var(--violet)" }} />
+          <span className="orbit-dot !top-auto -bottom-1" />
+        </div>
       </div>
-      <div className="orbit spin-fast h-[62%] w-[62%] border-cyan/30"><span className="orbit-dot" /></div>
+      <div className="orbit spin-fast h-[62%] w-[62%] border-cyan/30"><span className="orbit-dot" /><span className="orbit-dot !top-auto -bottom-1" style={{ background: "var(--sky)" }} /></div>
       <div className="absolute inset-0 m-auto h-[36%] w-[36%] rounded-full core-orb" />
       <div className="absolute inset-0 m-auto h-[46%] w-[46%] rounded-full border border-violet/30 spin-mid" style={{ borderStyle: "dotted" }} />
 
