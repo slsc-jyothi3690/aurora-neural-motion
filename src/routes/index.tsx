@@ -1,10 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowDown, ArrowUpRight, ArrowUp, Brain, ShieldCheck, Workflow, Code2, Mail, Phone, MapPin, Linkedin, Award, Languages, Menu, X, GraduationCap, FileText } from "lucide-react";
+import { ArrowDown, ArrowUpRight, ArrowUp, Brain, ShieldCheck, Workflow, Code2, Mail, Phone, MapPin, Linkedin, Award, Menu, X, GraduationCap, FileText } from "lucide-react";
 import { Background } from "@/components/portfolio/Background";
 import { AICore } from "@/components/portfolio/AICore";
 import { Reveal, spotlight, tilt, untilt } from "@/components/portfolio/Reveal";
-import resumeAsset from "@/assets/jyothi-resume.pdf.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,8 +19,9 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const RESUME_URL = resumeAsset.url;
-const LINKEDIN = "https://www.linkedin.com/in/sishtu-lalitha-sri-chandra-jyothi";
+const RESUME_URL = "https://aurora-neural-motion-1.onrender.com/jyothi.pdf";
+const RESUME_FILENAME = "jyothi.pdf";
+const LINKEDIN = "https://www.linkedin.com/in/sishtu-lalitha-sri-chandra-jyothi-4a253026a";
 
 const nav = ["Home", "About", "Experience", "Skills", "Projects", "Certifications", "Contact"];
 
@@ -47,14 +47,14 @@ const experience = [
       "Tested a Cigna healthcare claims chatbot by validating prompts and responses against expected outcomes.",
       "Covered positive and negative scenarios and functional and non-functional chatbot behavior.",
       "Created test scenarios from user stories, logged defects in Jira, retested fixes, performed regression testing, and documented test evidence.",
-      "Used LangSmith for exposure to chatbot-response failure analysis and Microsoft Copilot to assist with test scenarios and defect documentation.",
+      "Used LangSmith for exposure to chatbot-response failure analysis and Bruno for API testing workflows; Microsoft Copilot assisted with test scenarios and defect documentation.",
     ],
-    tools: ["Jira", "LangSmith", "Microsoft Copilot", "Manual Testing", "Regression"],
+    tools: ["Jira", "LangSmith", "Bruno", "Microsoft Copilot", "Manual Testing", "Regression"],
   },
 ];
 
 const skills = [
-  { title: "AI & LLM Testing", icon: Brain, items: ["Generative AI chatbot testing", "LLM prompt testing", "Expected-response validation", "Positive and negative scenarios", "Functional and non-functional testing", "LangSmith exposure"] },
+  { title: "AI & LLM Testing", icon: Brain, items: ["Generative AI chatbot testing", "LLM prompt testing", "Expected-response validation", "Positive and negative scenarios", "Functional and non-functional testing", "LangSmith exposure", "Bruno API testing"] },
   { title: "Quality Assurance", icon: ShieldCheck, items: ["UI testing", "API testing", "Web and mobile testing", "Regression testing", "Defect reporting and retesting", "Test scenario design", "Test evidence documentation", "Defect analysis", "Story-based testing", "Data validation", "Communication", "Teamwork", "Adaptability"] },
   { title: "Automation & Tools", icon: Workflow, items: ["Playwright", "Cursor AI", "GitHub", "Jira", "BrowserStack", "Microsoft Copilot", "CSA tool"] },
   { title: "Programming", icon: Code2, items: ["Python — Intermediate", "R Programming — Intermediate", "C — Basic", "HTML/CSS — Basic"] },
@@ -67,8 +67,6 @@ const projects = [
 ] as const;
 
 const certs = [
-  ["TCS iON Career Edge — Young Professional", "TCS iON"],
-  ["Pearson MePro English", "Pearson"],
   ["Generative AI", "LinkedIn Learning · Google Cloud"],
   ["AI and Machine Learning Fundamentals", "Infosys Springboard"],
   ["Programming Essentials in C", "Cisco Networking Academy / LearnTube by Career Ninja"],
@@ -111,7 +109,7 @@ function Navbar() {
           ))}
         </ul>
         <div className="flex items-center gap-2">
-          <a href={RESUME_URL ?? "#contact"} {...(RESUME_URL ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="btn-ghost !px-4 !py-2 text-sm">Resume <ArrowUpRight className="h-4 w-4" /></a>
+          <a href={RESUME_URL} download={RESUME_FILENAME} className="btn-ghost !px-4 !py-2 text-sm">Resume <ArrowUpRight className="h-4 w-4" /></a>
           <button className="rounded-full p-2 lg:hidden" onClick={() => setOpen(!open)} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}>
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -352,9 +350,8 @@ function Education() {
             </Reveal>
           ))}
         </div>
-        <div className="mt-16 grid gap-5 md:grid-cols-2">
+        <div className="mt-16 grid gap-5 md:grid-cols-1">
           <Reveal><div className="glass hover-card h-full p-6" onPointerMove={spotlight}><p className="eyebrow mb-3 flex items-center gap-2"><Award className="h-4 w-4" />Achievement</p><p>Participated in Cognizant's vibe-coding event.</p></div></Reveal>
-          <Reveal delay={100}><div className="glass hover-card h-full p-6" onPointerMove={spotlight}><p className="eyebrow mb-3 flex items-center gap-2"><Languages className="h-4 w-4" />Languages</p><ul className="flex flex-wrap gap-2">{["English", "Telugu", "Hindi — basic conversational"].map((l) => <li key={l} className="tag">{l}</li>)}</ul></div></Reveal>
         </div>
       </div>
     </section>
@@ -388,7 +385,7 @@ function Contact() {
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <a href="mailto:lscjyothisishtu@gmail.com" className="btn-primary">Send an Email <ArrowUpRight className="h-4 w-4" /></a>
               {RESUME_URL ? (
-                <a href={RESUME_URL} download className="btn-ghost"><FileText className="h-4 w-4" /> Download Resume</a>
+                <a href={RESUME_URL} download={RESUME_FILENAME} className="btn-ghost"><FileText className="h-4 w-4" /> Download Resume</a>
               ) : (
                 <span className="btn-ghost cursor-not-allowed opacity-60" aria-disabled="true"><FileText className="h-4 w-4" /> Resume available on request</span>
               )}
